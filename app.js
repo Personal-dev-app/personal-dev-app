@@ -1,4 +1,4 @@
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -9,10 +9,10 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 
 mongoose
-  .set("useUnifiedTopology", true)
-  .set("useFindAndModify", false)
   .connect(process.env.MONGODB_URI || "mongodb://localhost/personal-dev-app", {
     useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   .then((x) => {
     console.log(
