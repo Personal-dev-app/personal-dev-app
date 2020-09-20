@@ -14,7 +14,7 @@ router.post('/user/create', userController.store);
 router.get('/user/:id', userController.show);
 
 /* Update user. */
-router.post('/user/:id/update', userController.update);
+router.put('/user/:id/update', userController.update);
 
 /* Delete user withID. */
 router.post('/user/:id/delete', userController.destroy);
