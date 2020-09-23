@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import GoogleAuth from "./components/GoogleAuth";
+import TaskDashboad from "./components/TaskDashboad";
 
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 const App = () => {
   const [auth, setGoogleAuth] = useState(null);
-  const [isSignedIn, setIsSignedIn] = useState(null);
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
   useEffect(() => {
     window.gapi.load("client:auth2", () => {
@@ -22,10 +23,14 @@ const App = () => {
           setIsSignedIn(GoogleAuth.isSignedIn.get());
         });
     });
-  }, []);
+  }, [isSignedIn]);
 
   const renderTest = (isSignedIn) => {
-    return isSignedIn ? "you are signed in" : <GoogleAuth auth={auth} />;
+    return isSignedIn ? (
+      <TaskDashboad auth={auth} setIsSignedIn={setIsSignedIn} />
+    ) : (
+      <GoogleAuth auth={auth} setIsSignedIn={setIsSignedIn} />
+    );
   };
 
   return <div>{renderTest(isSignedIn)}</div>;
